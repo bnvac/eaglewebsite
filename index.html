@@ -39,7 +39,7 @@
     <div class="container narrow">
       <div class="eyebrow">A Walking Tour Through History</div>
       <h1>Millis Historic Trail</h1>
-      <p class="lede">Ten landmarks tracing the story of a New England town &mdash; from its
+      <p class="lede">Ten landmarks tracing the story of a New England town - from its
         colonial meeting houses and the battles of King Philip's War to the mills and railroads
         that built modern Millis.</p>
       <div class="meta" style="margin-top:24px;">
@@ -99,16 +99,16 @@
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script>
     var stops = [
-      { n: 1,  name: "Church of Christ",        file: "church.html",    addr: "142 Exchange St",             lat: 42.1651, lng: -71.3602 },
-      { n: 2,  name: "John Partridge House",    file: "partridge.html", addr: "315 Exchange St",             lat: 42.1589, lng: -71.3571 },
-      { n: 3,  name: "Richardson's Tavern",     file: "tavern.html",    addr: "213 Village St",              lat: 42.1634, lng: -71.3499 },
-      { n: 4,  name: "Prospect Hill Cemetery",  file: "cemetery.html",  addr: "74 Auburn Rd",                lat: 42.1578, lng: -71.3644 },
-      { n: 5,  name: "Rockville Chapel",        file: "rockville.html", addr: "242 Pleasant St",             lat: 42.1432, lng: -71.3574 },
-      { n: 6,  name: "Lansing Millis Station",  file: "station.html",   addr: "64 Exchange St",              lat: 42.1648, lng: -71.3598 },
-      { n: 7,  name: "Ellice School",           file: "ellice.html",    addr: "185 Pleasant St",             lat: 42.1521, lng: -71.3574 },
-      { n: 8,  name: "Oak Grove Park",          file: "oakgrove.html",  addr: "444 Exchange St",             lat: 42.1587, lng: -71.3498 },
-      { n: 9,  name: "South End Pond",          file: "southend.html",  addr: "Orchard Street",              lat: 42.1401, lng: -71.3521 },
-      { n: 10, name: "Niagara Engine House No. 2", file: "adams.html",  addr: "63 Myrtle St",                lat: 42.1659, lng: -71.3601 }
+      { n: 1,  name: "Church of Christ",        file: "church.html",    addr: "142 Exchange St",             lat: 42.17060, lng: -71.36019 },
+      { n: 2,  name: "John Partridge House",    file: "partridge.html", addr: "315 Exchange St",             lat: 42.17622, lng: -71.35982 },
+      { n: 3,  name: "Richardson's Tavern",     file: "tavern.html",    addr: "213 Village St",              lat: 42.15338, lng: -71.35407 },
+      { n: 4,  name: "Prospect Hill Cemetery",  file: "cemetery.html",  addr: "74 Auburn Rd",                lat: 42.16673, lng: -71.36533 },
+      { n: 5,  name: "Rockville Chapel",        file: "rockville.html", addr: "242 Pleasant St",             lat: 42.14059, lng: -71.35826 },
+      { n: 6,  name: "Lansing Millis Station",  file: "station.html",   addr: "64 Exchange St",              lat: 42.16766, lng: -71.36119 },
+      { n: 7,  name: "Ellice School",           file: "ellice.html",    addr: "185 Pleasant St",             lat: 42.14540, lng: -71.35819 },
+      { n: 8,  name: "Oak Grove Park",          file: "oakgrove.html",  addr: "444 Exchange St",             lat: 42.18119, lng: -71.36299 },
+      { n: 9,  name: "South End Pond",          file: "southend.html",  addr: "Orchard Street",              lat: 42.19360, lng: -71.35743 },
+      { n: 10, name: "Niagara Engine House No. 2", file: "adams.html",  addr: "63 Myrtle St",                lat: 42.13890, lng: -71.35924 }
     ];
 
     var map = L.map('map').setView([42.1560, -71.3570], 14);
@@ -122,13 +122,13 @@
       function pin(num) {
         return L.divIcon({
           className: 'trail-pin',
-          html: '<div style="background:#650e0d;color:#fff;width:30px;height:30px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:2px solid #03294b;box-shadow:0 2px 5px rgba(3,41,75,.4);display:flex;align-items:center;justify-content:center;font-family:Inter,sans-serif;font-weight:700;font-size:13px;"><span style="transform:rotate(45deg);">' + num + '</span></div>',
+          html: '<div style="background:#650e0d;color:#fff;width:30px;height:30px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:2px solid #b8935a;box-shadow:0 2px 5px rgba(52,6,5,.4);display:flex;align-items:center;justify-content:center;font-family:Inter,sans-serif;font-weight:700;font-size:13px;"><span style="transform:rotate(45deg);">' + num + '</span></div>',
           iconSize: [30, 30], iconAnchor: [15, 30], popupAnchor: [0, -30]
         });
       }
       var m = L.marker([s.lat, s.lng], { icon: pin(s.n) }).addTo(map);
       m.bindPopup('<div style="text-align:center;font-family:Inter,sans-serif;">' +
-        '<strong style="font-size:1.02rem;color:#03294b;">' + s.name + '</strong><br>' +
+        '<strong style="font-size:1.02rem;color:#650e0d;">' + s.name + '</strong><br>' +
         '<span style="font-size:.82rem;color:#4b5563;">' + s.addr + '</span><br>' +
         '<a href="' + s.file + '" style="display:inline-block;margin-top:8px;color:#650e0d;font-weight:600;">Read the article &rsaquo;</a></div>');
       bounds.push([s.lat, s.lng]);
