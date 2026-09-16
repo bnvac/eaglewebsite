@@ -9,7 +9,7 @@ Drop each stop's cover photo in this folder using the matching file name:
   photos/ellice.jpg      Ellice School
   photos/oakgrove.jpg    Oak Grove Farm
   photos/southend.jpg    South End Pond
-  photos/adams.jpg       Peter Adams House
+  photos/niagara.jpg     Niagara Engine House No. 2
 
 That single image is used in two places automatically:
   1. the cover photo (first slot) of the page's Photo Gallery, and

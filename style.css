@@ -61,11 +61,12 @@ img { max-width: 100%; height: auto; display: block; }
   max-width: 1120px; margin: 0 auto; flex-wrap: wrap;
 }
 .brand {
-  font-family: "Playfair Display", serif;
+  font-family: "Cinzel", "Playfair Display", Georgia, serif;
   font-weight: 700;
-  font-size: 1.2rem;
+  font-size: 1.15rem;
+  letter-spacing: 0.04em;
   color: #fff;
-  line-height: 1.2;
+  line-height: 1.25;
 }
 .brand:hover { text-decoration: none; color: #fff; }
 .brand small {
@@ -313,7 +314,7 @@ img { max-width: 100%; height: auto; display: block; }
   gap: 18px;
 }
 .gallery-item { margin: 0; background: #fff; border: 1px solid var(--line); padding: 10px; box-shadow: 0 1px 4px rgba(52,6,5,0.06); }
-.gallery-item .placeholder-img { height: 180px; font-size: 0.85rem; }
+.gallery-item .placeholder-img { height: 180px; font-size: 0.85rem; position: relative; overflow: hidden; }
 .gallery-item figcaption { font-size: 0.78rem; color: var(--muted); padding: 8px 2px 2px; }
 .gallery-item .credit { color: var(--gold-dark); font-style: italic; }
 
@@ -406,8 +407,9 @@ img { max-width: 100%; height: auto; display: block; }
   border-top: 4px solid var(--gold);
 }
 .site-footer .ft-name {
-  font-family: "Playfair Display", serif;
-  font-size: 1.3rem; color: #fff; font-weight: 700;
+  font-family: "Cinzel", "Playfair Display", serif;
+  font-size: 1.25rem; color: #fff; font-weight: 700;
+  letter-spacing: 0.05em;
   margin-bottom: 8px;
 }
 .site-footer p { margin: 5px 0; font-size: 0.85rem; }
