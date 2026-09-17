@@ -15,6 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,800;1,400;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -37,7 +38,7 @@
     <div class="container narrow">
       <div class="eyebrow">A Walking Tour Through History</div>
       <h1>Millis Historic Trail</h1>
-      <p class="lede">Ten landmarks tracing the story of a New England town - from its
+      <p class="lede">Ten landmarks tracing the story of a New England town, from its
         colonial meeting houses and the battles of King Philip's War to the mills and railroads
         that built modern Millis.</p>
       <div class="meta" style="margin-top:24px;">
@@ -51,12 +52,9 @@
     <div class="container">
       <div class="section-head">
         <h2 id="map">The Trail Map</h2>
-        <p>Ten historic stops across the town of Millis.</p>
+        <p>Click any marker to read about the site.</p>
       </div>
-      <div class="map-frame">
-        <img src="photos/trail-map.png" alt="Map of Millis, Massachusetts showing the ten numbered trail stops">
-      </div>
-      <p class="map-note">Tap any stop card below to open its article.</p>
+      <div id="map"></div>
     </div>
   </section>
 
@@ -96,21 +94,46 @@
     <p><a href="#map">Return to the Trail Map</a></p>
   </footer>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
   <script>
     var stops = [
-      { n: 1,  name: "Church of Christ",        file: "church.html",    addr: "142 Exchange St" },
-      { n: 2,  name: "John Partridge House",    file: "partridge.html", addr: "315 Exchange St" },
-      { n: 3,  name: "Richardson's Tavern",     file: "tavern.html",    addr: "213 Village St" },
-      { n: 4,  name: "Prospect Hill Cemetery",  file: "cemetery.html",  addr: "74 Auburn Rd" },
-      { n: 5,  name: "Rockville Chapel",        file: "rockville.html", addr: "242 Pleasant St" },
-      { n: 6,  name: "Lansing Millis Station",  file: "station.html",   addr: "64 Exchange St" },
-      { n: 7,  name: "Ellice School",           file: "ellice.html",    addr: "185 Pleasant St" },
-      { n: 8,  name: "Oak Grove Park",          file: "oakgrove.html",  addr: "444 Exchange St" },
-      { n: 9,  name: "South End Pond",          file: "southend.html",  addr: "Orchard Street" },
-      { n: 10, name: "Niagara Engine House No. 2", file: "niagara.html", addr: "63 Myrtle St" }
+      { n: 1,  name: "Church of Christ",        file: "church.html",    addr: "142 Exchange St",  lat: 42.17060, lng: -71.36019 },
+      { n: 2,  name: "John Partridge House",    file: "partridge.html", addr: "315 Exchange St",  lat: 42.17622, lng: -71.35982 },
+      { n: 3,  name: "Richardson's Tavern",     file: "tavern.html",    addr: "213 Village St",   lat: 42.15338, lng: -71.35407 },
+      { n: 4,  name: "Prospect Hill Cemetery",  file: "cemetery.html",  addr: "74 Auburn Rd",     lat: 42.16673, lng: -71.36533 },
+      { n: 5,  name: "Rockville Chapel",        file: "rockville.html", addr: "242 Pleasant St",  lat: 42.14059, lng: -71.35826 },
+      { n: 6,  name: "Lansing Millis Station",  file: "station.html",   addr: "64 Exchange St",   lat: 42.16766, lng: -71.36119 },
+      { n: 7,  name: "Ellice School",           file: "ellice.html",    addr: "185 Pleasant St",  lat: 42.14540, lng: -71.35819 },
+      { n: 8,  name: "Oak Grove Park",          file: "oakgrove.html",  addr: "444 Exchange St",  lat: 42.18119, lng: -71.36299 },
+      { n: 9,  name: "South End Pond",          file: "southend.html",  addr: "Orchard Street",   lat: 42.19360, lng: -71.35743 },
+      { n: 10, name: "Niagara Engine House No. 2", file: "niagara.html", addr: "63 Myrtle St",    lat: 42.13890, lng: -71.35924 }
     ];
 
-    // Build stop cards
+    if (window.L) {
+      var map = L.map('map').setView([42.1600, -71.3590], 13);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(map);
+
+      var bounds = [];
+      stops.forEach(function (s) {
+        var icon = L.divIcon({
+          className: 'trail-pin',
+          html: '<div style="background:#650e0d;color:#fff;width:30px;height:30px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:2px solid #b8935a;box-shadow:0 2px 5px rgba(52,6,5,.4);display:flex;align-items:center;justify-content:center;font-family:Inter,sans-serif;font-weight:700;font-size:13px;"><span style="transform:rotate(45deg);">' + s.n + '</span></div>',
+          iconSize: [30, 30], iconAnchor: [15, 30], popupAnchor: [0, -30]
+        });
+        L.marker([s.lat, s.lng], { icon: icon }).addTo(map).bindPopup(
+          '<div style="text-align:center;font-family:Inter,sans-serif;">' +
+          '<strong style="font-size:1.02rem;color:#650e0d;">' + s.name + '</strong><br>' +
+          '<span style="font-size:.82rem;color:#4b5563;">' + s.addr + '</span><br>' +
+          '<a href="' + s.file + '" style="display:inline-block;margin-top:8px;color:#650e0d;font-weight:600;">Read the article &rsaquo;</a></div>');
+        bounds.push([s.lat, s.lng]);
+      });
+      map.fitBounds(bounds, { padding: [40, 40] });
+      setTimeout(function () { map.invalidateSize(); }, 250);
+    }
+
     var grid = document.getElementById('stops-grid');
     stops.forEach(function (s) {
       var sid = s.file.replace('.html', '');
