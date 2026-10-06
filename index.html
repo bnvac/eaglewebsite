@@ -14,7 +14,7 @@
 <meta name="twitter:card" content="summary">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,800;1,400;1,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <link rel="stylesheet" href="style.css">
 </head>
@@ -36,15 +36,11 @@
 
   <section class="hero">
     <div class="container narrow">
-      <div class="eyebrow">A Walking Tour Through History</div>
+      <div class="eyebrow">A Self-Guided Walking Tour</div>
       <h1>Millis Historic Trail</h1>
-      <p class="lede">Ten landmarks tracing the story of a New England town, from its
-        colonial meeting houses and the battles of King Philip's War to the mills and railroads
-        that built modern Millis.</p>
-      <div class="meta" style="margin-top:24px;">
-        <a href="#map" class="btn">Explore the Map</a>
-        <a href="#stops" class="btn btn-outline" style="margin-left:10px;">View the Stops</a>
-      </div>
+      <p class="lede">Ten landmarks tracing three centuries of a New England town, from its
+        colonial meeting houses and the battles of King Philip's War to the mills and
+        railroads that built modern Millis.</p>
     </div>
   </section>
 
@@ -97,16 +93,16 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
   <script>
     var stops = [
-      { n: 1,  name: "Church of Christ",        file: "church.html",    addr: "142 Exchange St",  lat: 42.17060, lng: -71.36019 },
-      { n: 2,  name: "John Partridge House",    file: "partridge.html", addr: "315 Exchange St",  lat: 42.17622, lng: -71.35982 },
-      { n: 3,  name: "Richardson's Tavern",     file: "tavern.html",    addr: "213 Village St",   lat: 42.15338, lng: -71.35407 },
-      { n: 4,  name: "Prospect Hill Cemetery",  file: "cemetery.html",  addr: "74 Auburn Rd",     lat: 42.16673, lng: -71.36533 },
-      { n: 5,  name: "Rockville Chapel",        file: "rockville.html", addr: "242 Pleasant St",  lat: 42.14059, lng: -71.35826 },
-      { n: 6,  name: "Lansing Millis Station",  file: "station.html",   addr: "64 Exchange St",   lat: 42.16766, lng: -71.36119 },
-      { n: 7,  name: "Ellice School",           file: "ellice.html",    addr: "185 Pleasant St",  lat: 42.14540, lng: -71.35819 },
-      { n: 8,  name: "Oak Grove Park",          file: "oakgrove.html",  addr: "444 Exchange St",  lat: 42.18119, lng: -71.36299 },
-      { n: 9,  name: "South End Pond",          file: "southend.html",  addr: "Orchard Street",   lat: 42.19360, lng: -71.35743 },
-      { n: 10, name: "Niagara Engine House No. 2", file: "niagara.html", addr: "63 Myrtle St",    lat: 42.13890, lng: -71.35924 }
+      { n: 1,  name: "Church of Christ",        file: "church.html",    addr: "142 Exchange St",  date: "Est. 1714",       lat: 42.17060, lng: -71.36019 },
+      { n: 2,  name: "John Partridge House",    file: "partridge.html", addr: "315 Exchange St",  date: "Built c. 1659",   lat: 42.17622, lng: -71.35982 },
+      { n: 3,  name: "Richardson's Tavern",     file: "tavern.html",    addr: "213 Village St",   date: "Built c. 1720",   lat: 42.15338, lng: -71.35407 },
+      { n: 4,  name: "Prospect Hill Cemetery",  file: "cemetery.html",  addr: "74 Auburn Rd",     date: "Est. 1714",       lat: 42.16673, lng: -71.36533 },
+      { n: 5,  name: "Rockville Chapel",        file: "rockville.html", addr: "242 Pleasant St",  date: "Dedicated 1877",  lat: 42.14059, lng: -71.35826 },
+      { n: 6,  name: "Lansing Millis Station",  file: "station.html",   addr: "64 Exchange St",   date: "Built 1885",      lat: 42.16766, lng: -71.36119 },
+      { n: 7,  name: "Ellice School",           file: "ellice.html",    addr: "185 Pleasant St",  date: "Built 1849",      lat: 42.14540, lng: -71.35819 },
+      { n: 8,  name: "Oak Grove Park",          file: "oakgrove.html",  addr: "444 Exchange St",  date: "Est. 1714",       lat: 42.18119, lng: -71.36299 },
+      { n: 9,  name: "South End Pond",          file: "southend.html",  addr: "Orchard Street",   date: "c. 1676",         lat: 42.19360, lng: -71.35743 },
+      { n: 10, name: "Niagara Engine House No. 2", file: "niagara.html", addr: "63 Myrtle St",    date: "Est. 1857",       lat: 42.13890, lng: -71.35924 }
     ];
 
     if (window.L) {
@@ -135,24 +131,18 @@
     }
 
     var grid = document.getElementById('stops-grid');
+    grid.className = 'stops-list';
     stops.forEach(function (s) {
       var sid = s.file.replace('.html', '');
-      var cover = 'photos/' + sid + '.jpg';
       var a = document.createElement('a');
       a.href = s.file;
-      a.className = 'stop-card';
-      a.style.textDecoration = 'none';
+      a.className = 'stop-entry';
       a.innerHTML =
-        '<div class="card-cover">' +
-          '<span class="cover-ph">' + s.n + '</span>' +
-          '<img class="cover-photo" src="' + cover + '" alt="' + s.name + '" loading="lazy" onerror="this.remove()">' +
-        '</div>' +
-        '<div class="card-body">' +
-          '<span class="num">Stop No. ' + s.n + '</span>' +
-          '<h3>' + s.name + '</h3>' +
-          '<p class="addr">' + s.addr + '</p>' +
-          '<span class="card-link">Read the article &rsaquo;</span>' +
-        '</div>';
+        '<span class="stop-no">' + (s.n < 10 ? '0' : '') + s.n + '</span>' +
+        '<span class="stop-thumb"><img src="photos/' + sid + '.jpg" alt="' + s.name + '" loading="lazy" onerror="this.style.display=\'none\'"></span>' +
+        '<span class="stop-text"><span class="stop-name">' + s.name + '</span>' +
+          '<span class="stop-meta">' + s.addr + ' &middot; ' + s.date + '</span></span>' +
+        '<span class="stop-arrow">&rsaquo;</span>';
       grid.appendChild(a);
     });
   </script>
