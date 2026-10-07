@@ -14,14 +14,14 @@
 <meta name="twitter:card" content="summary">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;0,900;1,400&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header class="site-header">
     <div class="nav-inner">
-      <a href="index.html" class="brand">Millis Historic Trail<small>Millis, Massachusetts</small></a>
+      <a href="index.html" class="brand"><b>Millis Historic Trail</b><small>Millis, Massachusetts</small></a>
       <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
       <label for="nav-toggle" class="nav-burger" aria-label="Toggle menu"><span></span><span></span><span></span></label>
       <nav class="nav-links">
@@ -34,19 +34,24 @@
     </div>
   </header>
 
-  <section class="hero">
-    <div class="container narrow">
-      <div class="eyebrow">A Self-Guided Walking Tour</div>
-      <h1>Millis Historic Trail</h1>
-      <p class="lede">Ten landmarks tracing three centuries of a New England town, from its
-        colonial meeting houses and the battles of King Philip's War to the mills and
-        railroads that built modern Millis.</p>
+  <section class="hero-banner">
+    <div class="hero-inner">
+      <div class="container">
+        <div class="eyebrow">A Self-Guided Walking Tour</div>
+        <h1>Millis Historic Trail</h1>
+        <p class="lede">Ten landmarks tracing three centuries of a New England town, from its
+          colonial meeting houses and the battles of King Philip's War to the mills and
+          railroads that built modern Millis.</p>
+        <a href="#stops" class="btn">Explore the Trail</a>
+      </div>
     </div>
+    <span class="hero-credit">Bird's-eye view of Millis, 1890 &middot; Boston Public Library</span>
   </section>
 
   <section class="map-section" id="map-section">
     <div class="container">
       <div class="section-head">
+        <span class="kicker">Plan Your Walk</span>
         <h2 id="map">The Trail Map</h2>
         <p>Click any marker to read about the site.</p>
       </div>
@@ -57,6 +62,7 @@
   <section class="stops-section" id="stops">
     <div class="container">
       <div class="section-head">
+        <span class="kicker">The Trail</span>
         <h2>The Ten Stops</h2>
         <p>Each stop tells a chapter of the Millis story.</p>
       </div>
@@ -67,6 +73,7 @@
   <section class="about-section" id="about">
     <div class="container narrow">
       <div class="section-head">
+        <span class="kicker">About</span>
         <h2>About This Project</h2>
       </div>
       <p>The Millis Historic Trail is an Eagle Scout Service Project created by
@@ -116,14 +123,14 @@
       stops.forEach(function (s) {
         var icon = L.divIcon({
           className: 'trail-pin',
-          html: '<div style="background:#650e0d;color:#fff;width:30px;height:30px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:2px solid #b8935a;box-shadow:0 2px 5px rgba(52,6,5,.4);display:flex;align-items:center;justify-content:center;font-family:Inter,sans-serif;font-weight:700;font-size:13px;"><span style="transform:rotate(45deg);">' + s.n + '</span></div>',
+          html: '<div style="background:#8a5a2b;color:#fff;width:30px;height:30px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:2px solid #fff;box-shadow:0 2px 5px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;font-family:sans-serif;font-weight:700;font-size:13px;"><span style="transform:rotate(45deg);">' + s.n + '</span></div>',
           iconSize: [30, 30], iconAnchor: [15, 30], popupAnchor: [0, -30]
         });
         L.marker([s.lat, s.lng], { icon: icon }).addTo(map).bindPopup(
-          '<div style="text-align:center;font-family:Inter,sans-serif;">' +
-          '<strong style="font-size:1.02rem;color:#650e0d;">' + s.name + '</strong><br>' +
-          '<span style="font-size:.82rem;color:#4b5563;">' + s.addr + '</span><br>' +
-          '<a href="' + s.file + '" style="display:inline-block;margin-top:8px;color:#650e0d;font-weight:600;">Read the article &rsaquo;</a></div>');
+          '<div style="text-align:center;font-family:sans-serif;">' +
+          '<strong style="font-size:1.02rem;color:#1b1b1b;">' + s.name + '</strong><br>' +
+          '<span style="font-size:.82rem;color:#5c564c;">' + s.addr + '</span><br>' +
+          '<a href="' + s.file + '" style="display:inline-block;margin-top:8px;color:#8a5a2b;font-weight:700;">Read the article &rsaquo;</a></div>');
         bounds.push([s.lat, s.lng]);
       });
       map.fitBounds(bounds, { padding: [40, 40] });
@@ -131,18 +138,19 @@
     }
 
     var grid = document.getElementById('stops-grid');
-    grid.className = 'stops-list';
     stops.forEach(function (s) {
       var sid = s.file.replace('.html', '');
       var a = document.createElement('a');
       a.href = s.file;
-      a.className = 'stop-entry';
+      a.className = 'stop-card';
       a.innerHTML =
-        '<span class="stop-no">' + (s.n < 10 ? '0' : '') + s.n + '</span>' +
-        '<span class="stop-thumb"><img src="photos/' + sid + '.jpg" alt="' + s.name + '" loading="lazy" onerror="this.style.display=\'none\'"></span>' +
-        '<span class="stop-text"><span class="stop-name">' + s.name + '</span>' +
-          '<span class="stop-meta">' + s.addr + ' &middot; ' + s.date + '</span></span>' +
-        '<span class="stop-arrow">&rsaquo;</span>';
+        '<span class="thumb"><img src="photos/' + sid + '.jpg" alt="' + s.name + '" loading="lazy" onerror="this.style.visibility=\'hidden\'"></span>' +
+        '<span class="body">' +
+          '<span class="kicker">Stop ' + (s.n < 10 ? '0' : '') + s.n + '</span>' +
+          '<h3>' + s.name + '</h3>' +
+          '<span class="cmeta">' + s.addr + ' &middot; ' + s.date + '</span>' +
+          '<span class="more">Read more &rsaquo;</span>' +
+        '</span>';
       grid.appendChild(a);
     });
   </script>
